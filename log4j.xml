@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+     <param name="Target" value="System.out" />
+     <layout class="org.apache.log4j.PatternLayout">
+       <param name="ConversionPattern" value="%d{ISO8601} %5p %c - %m%n" />
+     </layout>
+  </appender>
+
+  <appender name="file" class="org.apache.log4j.rolling.RollingFileAppender">
+    <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+   <param name="FileNamePattern" value="log/PacketsBatchGeneration.%d{yyyy-MM-dd}.log"/>
+    </rollingPolicy>
+     <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d{ISO8601} %5p %c{2} - %m%n" />
+     </layout>
+  </appender>
+
+  <logger name="oracle.jdbc.driver">
+     <level value="error"></level>
+  </logger>
+
+  <!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
+  <category name="org.apache.fop">
+     <priority value="fatal"/>
+  </category>
+   
+  <root>
+    <priority value="info" />
+    <!-- <appender-ref ref="console" /> -->
+    <appender-ref ref="file" />
+  </root>
+
+</log4j:configuration>
